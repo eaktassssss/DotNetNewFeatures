@@ -78,13 +78,31 @@ using (var httpClient = new HttpClient())
     cars.Add("Audi", 101);
     cars.Add("BMW", 102);
 
-    string value =string.Empty;
-
     var car = cars.Keys.FirstOrDefault(x => x == "Mercedes", "data_not_found");
 
     var product = products.FirstOrDefault(x => x.CategoryId == 7, new Produt() { Name = "default", Id = 0, CategoryId = 0 });
     #endregion
 
+
+
+    #region Zip
+
+    List<string> names = new List<string> { "Alice", "Bob", "Charlie" };
+
+    List<int> ages = new List<int> { 25, 30, 35 };
+
+
+    var nameAgePairs = names.Zip(ages, (name, age) =>
+    {
+        return $"name:{name},age:{age}";
+    });
+
+    foreach (var item in nameAgePairs)
+    {
+        Console.WriteLine(item);
+    }
+
+    #endregion
 
 }
 
