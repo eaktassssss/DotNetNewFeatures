@@ -22,10 +22,7 @@ using (var httpClient = new HttpClient())
     //    Console.WriteLine($"id={item.id}-- title={item.title}");
     //}
     #endregion
-
-
-
-    #region UnionBy, DistinctBy, MaxBy
+    #region UnionBy/DistinctBy/MaxBy
 
     var firstProducts = new List<Produt>
     {
@@ -62,18 +59,37 @@ using (var httpClient = new HttpClient())
     };
 
     int i = 1;
-    var allProducts = firstProducts.UnionBy(secondProducts,p=> p.CategoryId);
+    var allProducts = firstProducts.UnionBy(secondProducts, p => p.CategoryId);
     foreach (var item in allProducts)
     {
         Console.WriteLine($"Product:{i}");
         Console.WriteLine($"Id:{item.Id}-Name:{item.Name}-CategoryId={item.CategoryId}");
         i++;
     }
-    var categoryIdMaxProduct = allProducts.MaxBy(x=> x.CategoryId);
+    var categoryIdMaxProduct = allProducts.MaxBy(x => x.CategoryId);
 
     var products = firstProducts.Union(secondProducts).DistinctBy(x => x.CategoryId);
     #endregion
+    #region FirstOrDefault/LastOrDefault/SingleOrDefault 
+
+
+    var cars = new Dictionary<string, int>();
+    cars.Add("Volvo", 100);
+    cars.Add("Audi", 101);
+    cars.Add("BMW", 102);
+
+    string value =string.Empty;
+
+    var car = cars.Keys.FirstOrDefault(x => x == "Mercedes", "data_not_found");
+
+    var product = products.FirstOrDefault(x => x.CategoryId == 7, new Produt() { Name = "default", Id = 0, CategoryId = 0 });
+    #endregion
+
+
 }
+
+
+
 
 Console.ReadLine();
 
